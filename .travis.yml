@@ -11,3 +11,6 @@ addons:
     branches:
       - develop
       - master
+
+script:
+  - sonar-scanner
