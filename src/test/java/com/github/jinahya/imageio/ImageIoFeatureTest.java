@@ -5,16 +5,34 @@ import org.junit.jupiter.api.Test;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.SchemaOutputResolver;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-abstract class ImageIoFeatureTest<T extends ImageIoFeature<T>> {
+public abstract class ImageIoFeatureTest<T extends ImageIoFeature<T>> {
 
     // -----------------------------------------------------------------------------------------------------------------
     ImageIoFeatureTest(final Class<T> featureClass) {
         super();
         this.featureClass = requireNonNull(featureClass, "featureClass is null");
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void printXmlSchema() throws JAXBException, IOException {
+        final JAXBContext context = JAXBContext.newInstance(featureClass);
+        context.generateSchema(new SchemaOutputResolver() {
+            @Override
+            public Result createOutput(final String namespaceUri, final String suggestedFileName) throws IOException {
+                final Result result = new StreamResult(System.out);
+                result.setSystemId("why do i need to do this?");
+                return result;
+            }
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------------------

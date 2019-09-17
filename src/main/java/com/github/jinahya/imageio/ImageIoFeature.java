@@ -34,7 +34,7 @@ import java.util.Map;
  * @param <T> feature type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
+public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
 
     // -----------------------------------------------------------------------------------------------------------------
     static <T extends ImageIoFeature<T>> List<T> list(final Class<T> featureClass, final String[] readerValues,
