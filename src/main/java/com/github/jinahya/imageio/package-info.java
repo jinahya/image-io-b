@@ -1,7 +1,7 @@
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlSchema(attributeFormDefault = XmlNsForm.UNQUALIFIED,
            elementFormDefault = XmlNsForm.QUALIFIED,
-           namespace = IMAGE_IO_B_NS_URI)
+           namespace = IMAGEIO_FEATURES_NS_URI)
 package com.github.jinahya.imageio;
 
 /*-
@@ -29,4 +29,4 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;
 
-import static com.github.jinahya.imageio.ImageIoXmlConstants.IMAGE_IO_B_NS_URI;
+import static com.github.jinahya.imageio.ImageIoXmlConstants.IMAGEIO_FEATURES_NS_URI;
