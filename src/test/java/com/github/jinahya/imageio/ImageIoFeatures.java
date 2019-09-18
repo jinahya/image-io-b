@@ -19,6 +19,6 @@ public class ImageIoFeatures {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @XmlElement
+    @XmlElement(name = "imageIoFeature")
     private List<ImageIoFeature<?>> elements;
 }
