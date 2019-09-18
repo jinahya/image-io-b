@@ -2,7 +2,7 @@ package com.github.jinahya.imageio;
 
 /*-
  * #%L
- * image-io-b
+ * imageio-features
  * %%
  * Copyright (C) 2019 Jinahya, Inc.
  * %%
@@ -21,11 +21,17 @@ package com.github.jinahya.imageio;
  */
 
 /**
+ * Constants for XML.
+ *
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public final class ImageIoXmlConstants {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The XML Namespace URI for image features. The value is {@value}.
+     */
     public static final String IMAGEIO_FEATURES_NS_URI = "http://github.com/jinahya/imageio";
 
     // -----------------------------------------------------------------------------------------------------------------

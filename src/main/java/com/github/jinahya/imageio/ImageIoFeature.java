@@ -2,7 +2,7 @@ package com.github.jinahya.imageio;
 
 /*-
  * #%L
- * image-io-b
+ * imageio-features
  * %%
  * Copyright (C) 2019 Jinahya, Inc.
  * %%
@@ -22,11 +22,13 @@ package com.github.jinahya.imageio;
 
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * An abstract for image features.
@@ -34,6 +36,7 @@ import java.util.Map;
  * @param <T> feature type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
+@XmlSeeAlso({ImageIoFileSuffix.class, ImageIoFormatName.class, ImageIoMimeType.class})
 public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -68,6 +71,37 @@ public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
                + ",writable=" + writable
                + ",value=" + value
                + "}";
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    boolean fieldsEqual(final Object obj) {
+        final ImageIoFeature<?> that = (ImageIoFeature<?>) obj;
+        if (!Objects.equals(this.value, that.value)) {
+            return false;
+        }
+        if (!Objects.equals(this.readable, that.readable)) {
+            return false;
+        }
+        if (!Objects.equals(this.writable, that.writable)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ImageIoFeature)) {
+            return false;
+        }
+        return fieldsEqual(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(readable, writable, value);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

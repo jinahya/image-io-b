@@ -8,7 +8,7 @@
     <version>0.8.4</version>
   </parent>
 
-  <artifactId>image-io-b</artifactId>
+  <artifactId>imageio-features</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -143,7 +143,7 @@
               <additionalJOption>-Xdoclint:all</additionalJOption>
             </additionalJOptions>
             <links>
-<!--              <link>https://javaee.github.io/javaee-spec/javadocs/</link>-->
+              <link>https://javaee.github.io/javaee-spec/javadocs/</link>
               <link>https://jakarta.ee/specifications/platform/8/apidocs/</link>
             </links>
           </configuration>

@@ -2,7 +2,7 @@ package com.github.jinahya.imageio;
 
 /*-
  * #%L
- * image-io-b
+ * imageio-features
  * %%
  * Copyright (C) 2019 Jinahya, Inc.
  * %%
@@ -40,11 +40,24 @@ public class ImageIoFileSuffix extends ImageIoFeature<ImageIoFileSuffix> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a list of all available reader/writer for file suffixes.
+     * Returns a list of all available features for file suffixes.
      *
      * @return a list of image io file suffixes.
      */
     public static List<ImageIoFileSuffix> availableImageIoFileSuffixes() {
         return list(ImageIoFileSuffix.class, getReaderFileSuffixes(), getWriterFileSuffixes());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ImageIoFileSuffix)) {
+            return false;
+        }
+        return fieldsEqual(obj);
     }
 }

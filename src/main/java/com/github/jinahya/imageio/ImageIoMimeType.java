@@ -2,7 +2,7 @@ package com.github.jinahya.imageio;
 
 /*-
  * #%L
- * image-io-b
+ * imageio-features
  * %%
  * Copyright (C) 2019 Jinahya, Inc.
  * %%
@@ -38,7 +38,26 @@ import static javax.imageio.ImageIO.getWriterMIMETypes;
 public class ImageIoMimeType extends ImageIoFeature<ImageIoMimeType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a list of all available features for MIME types.
+     *
+     * @return a list of image io MIME types.
+     */
     public static List<ImageIoMimeType> availableImageIoMimeTypes() {
         return list(ImageIoMimeType.class, getReaderMIMETypes(), getWriterMIMETypes());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ImageIoMimeType)) {
+            return false;
+        }
+        return fieldsEqual(obj);
     }
 }

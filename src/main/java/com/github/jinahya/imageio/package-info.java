@@ -1,3 +1,6 @@
+/**
+ * Defines class for binding information from {@link javax.imageio.ImageIO} class.
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlSchema(attributeFormDefault = XmlNsForm.UNQUALIFIED,
            elementFormDefault = XmlNsForm.QUALIFIED,
@@ -6,7 +9,7 @@ package com.github.jinahya.imageio;
 
 /*-
  * #%L
- * image-io-b
+ * imageio-features
  * %%
  * Copyright (C) 2019 Jinahya, Inc.
  * %%

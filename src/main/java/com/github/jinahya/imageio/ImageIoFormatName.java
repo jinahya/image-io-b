@@ -2,7 +2,7 @@ package com.github.jinahya.imageio;
 
 /*-
  * #%L
- * image-io-b
+ * imageio-features
  * %%
  * Copyright (C) 2019 Jinahya, Inc.
  * %%
@@ -38,7 +38,26 @@ import static javax.imageio.ImageIO.getWriterFormatNames;
 public class ImageIoFormatName extends ImageIoFeature<ImageIoFormatName> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a list of all available features for format names.
+     *
+     * @return a list of image io format names.
+     */
     public static List<ImageIoFormatName> availableImageIoFormatNames() {
         return list(ImageIoFormatName.class, getReaderFormatNames(), getWriterFormatNames());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ImageIoFormatName)) {
+            return false;
+        }
+        return fieldsEqual(obj);
     }
 }
