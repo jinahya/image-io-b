@@ -20,7 +20,7 @@ package com.github.jinahya.imageio;
  * #L%
  */
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlValue;
@@ -31,21 +31,23 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * An abstract for image features.
+ * An abstract class for image features.
  *
- * @param <T> feature type parameter
  * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 @XmlSeeAlso({ImageIoFileSuffix.class, ImageIoFormatName.class, ImageIoMimeType.class})
-public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
+public abstract class ImageIoFeature {
 
     // -----------------------------------------------------------------------------------------------------------------
-    static <T extends ImageIoFeature<T>> List<T> list(final Class<T> featureClass, final String[] readerValues,
-                                                      final String[] writerValues) {
+    static <T extends ImageIoFeature> List<T> list(final Class<T> featureClass, final String[] readerValues,
+                                                   final String[] writerValues) {
         final Map<String, T> m = new HashMap<>();
         for (final String value : readerValues) {
             try {
-                m.put(value, featureClass.getConstructor().newInstance().readable(true).value(value));
+                final T instance = featureClass.getConstructor().newInstance();
+                instance.setReadable(true);
+                instance.setValue(value);
+                m.put(value, instance);
             } catch (final ReflectiveOperationException roe) {
                 throw new RuntimeException(roe);
             }
@@ -53,7 +55,9 @@ public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
         for (final String value : writerValues) {
             m.computeIfAbsent(value, k -> {
                 try {
-                    return featureClass.getConstructor().newInstance().value(k);
+                    final T instance = featureClass.getConstructor().newInstance();
+                    instance.setValue(k);
+                    return instance;
                 } catch (final ReflectiveOperationException roe) {
                     throw new RuntimeException(roe);
                 }
@@ -75,14 +79,14 @@ public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
 
     // -----------------------------------------------------------------------------------------------------------------
     boolean fieldsEqual(final Object obj) {
-        final ImageIoFeature<?> that = (ImageIoFeature<?>) obj;
+        final ImageIoFeature that = (ImageIoFeature) obj;
         if (!Objects.equals(this.value, that.value)) {
             return false;
         }
-        if (!Objects.equals(this.readable, that.readable)) {
+        if (this.readable != that.readable) {
             return false;
         }
-        if (!Objects.equals(this.writable, that.writable)) {
+        if (this.writable != that.writable) {
             return false;
         }
         return true;
@@ -99,40 +103,39 @@ public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
         return fieldsEqual(obj);
     }
 
-    @Override
-    public int hashCode() {
+    private int hashCode1() {
         return Objects.hash(readable, writable, value);
     }
 
+    private int hashCode2() {
+        int result = Boolean.hashCode(readable);
+        result = 31 * result + Boolean.hashCode(writable);
+        result = 31 * result + (value == null ? 0 : value.hashCode());
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return hashCode2();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
-    public Boolean getReadable() {
+    public boolean isReadable() {
         return readable;
     }
 
-    public void setReadable(final Boolean readable) {
+    public void setReadable(final boolean readable) {
         this.readable = readable;
     }
 
-    @SuppressWarnings({"unchecked"})
-    public T readable(final Boolean readable) {
-        setReadable(readable);
-        return (T) this;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
-    public Boolean getWritable() {
+    public boolean isWritable() {
         return writable;
     }
 
-    public void setWritable(final Boolean writable) {
+    public void setWritable(final boolean writable) {
         this.writable = writable;
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public T writable(final Boolean writable) {
-        setWritable(writable);
-        return (T) this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -144,20 +147,14 @@ public abstract class ImageIoFeature<T extends ImageIoFeature<T>> {
         this.value = value;
     }
 
-    @SuppressWarnings({"unchecked"})
-    public T value(final String value) {
-        setValue(value);
-        return (T) this;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
     @XmlAttribute
-    private Boolean readable;
+    private boolean readable;
 
     @XmlAttribute
-    private Boolean writable;
+    private boolean writable;
 
     @XmlValue
-    @NotNull
+    @NotBlank
     private String value;
 }

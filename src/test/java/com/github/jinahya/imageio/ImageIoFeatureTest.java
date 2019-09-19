@@ -9,11 +9,15 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.github.jinahya.imageio.JsonbTests.acceptJsonb;
 import static java.util.Objects.requireNonNull;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A class for unit testing subclasses of {@link ImageIoFeature} class.
@@ -21,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @param <T> subclass type parameter
  */
 @Slf4j
-public abstract class ImageIoFeatureTest<T extends ImageIoFeature<T>> {
+public abstract class ImageIoFeatureTest<T extends ImageIoFeature> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -37,6 +41,61 @@ public abstract class ImageIoFeatureTest<T extends ImageIoFeature<T>> {
 
     // -----------------------------------------------------------------------------------------------------------------
     abstract List<T> instances();
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void assertAllInstancesAreNotEqualToEachOther() {
+        final Set<T> set = new HashSet<>();
+        for (final T instance : instances()) {
+            assertTrue(set.add(instance));
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testIsReadable() {
+        for (final T instance : instances()) {
+            final boolean readable = instance.isReadable();
+        }
+    }
+
+    @Test
+    public void testSetReadable() {
+        for (final T instance : instances()) {
+            instance.setReadable(current().nextBoolean());
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testIsWritable() {
+        for (final T instance : instances()) {
+            final boolean writable = instance.isWritable();
+        }
+    }
+
+    @Test
+    public void testSetWritable() {
+        for (final T instance : instances()) {
+            instance.setWritable(current().nextBoolean());
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testGetValue() {
+        for (final T instance : instances()) {
+            final String value = instance.getValue();
+        }
+    }
+
+    @Test
+    public void testSetValue() {
+        for (final T instance : instances()) {
+            instance.setValue(null);
+            instance.setValue(instance.toString());
+        }
+    }
 
     // ------------------------------------------------------------------------------------------------------------- XML
     @Test

@@ -9,10 +9,28 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.validation.Schema;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.github.jinahya.imageio.JsonbTests.acceptJsonb;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ImageIoFeaturesTest {
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void assertAllInstancesAreNotEqualToEachOther() {
+        final Set<ImageIoFeature> set = new HashSet<>();
+        for (final ImageIoFileSuffix instance : ImageIoFileSuffix.availableImageIoFileSuffixes()) {
+            assertTrue(set.add(instance));
+        }
+        for (final ImageIoFormatName instance : ImageIoFormatName.availableImageIoFormatNames()) {
+            assertTrue(set.add(instance));
+        }
+        for (final ImageIoMimeType instance : ImageIoMimeType.availableImageIoMimeTypes()) {
+            assertTrue(set.add(instance));
+        }
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Test

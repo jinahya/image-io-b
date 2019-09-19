@@ -11,7 +11,7 @@ import java.util.List;
 public class ImageIoFeatures {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public List<ImageIoFeature<?>> getElements() {
+    public List<ImageIoFeature> getElements() {
         if (elements == null) {
             elements = new ArrayList<>();
         }
@@ -20,5 +20,5 @@ public class ImageIoFeatures {
 
     // -----------------------------------------------------------------------------------------------------------------
     @XmlElement(name = "imageIoFeature")
-    private List<ImageIoFeature<?>> elements;
+    private List<ImageIoFeature> elements;
 }

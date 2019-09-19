@@ -35,7 +35,7 @@ import static javax.imageio.ImageIO.getWriterFormatNames;
  * @see ImageIO#getWriterFormatNames()
  */
 @XmlRootElement
-public class ImageIoFormatName extends ImageIoFeature<ImageIoFormatName> {
+public class ImageIoFormatName extends ImageIoFeature {
 
     // -----------------------------------------------------------------------------------------------------------------
 

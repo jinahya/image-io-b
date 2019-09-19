@@ -35,7 +35,7 @@ import static javax.imageio.ImageIO.getWriterFileSuffixes;
  * @see ImageIO#getWriterFileSuffixes()
  */
 @XmlRootElement
-public class ImageIoFileSuffix extends ImageIoFeature<ImageIoFileSuffix> {
+public class ImageIoFileSuffix extends ImageIoFeature {
 
     // -----------------------------------------------------------------------------------------------------------------
 

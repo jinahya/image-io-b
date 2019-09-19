@@ -35,7 +35,7 @@ import static javax.imageio.ImageIO.getWriterMIMETypes;
  * @see ImageIO#getWriterMIMETypes()
  */
 @XmlRootElement
-public class ImageIoMimeType extends ImageIoFeature<ImageIoMimeType> {
+public class ImageIoMimeType extends ImageIoFeature {
 
     // -----------------------------------------------------------------------------------------------------------------
 
